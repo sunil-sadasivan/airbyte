@@ -4,7 +4,7 @@ import { FormattedMessage } from "react-intl";
 import { ConnectionConfiguration } from "core/domain/connection";
 import { DestinationDefinition, DestinationDefinitionSpecification } from "core/domain/connector";
 import { LogsRequestError } from "core/request/LogsRequestError";
-import { useAnalyticsService } from "hooks/services/Analytics/useAnalyticsService";
+import { TrackActionType, useTrackAction } from "hooks/useTrackAction";
 import { createFormErrorMessage } from "utils/errorStatusMessage";
 import { ConnectorCard } from "views/Connector/ConnectorCard";
 
@@ -44,7 +44,7 @@ const DestinationForm: React.FC<DestinationFormProps> = ({
   destinationDefinitionError,
   isLoading,
 }) => {
-  const analyticsService = useAnalyticsService();
+  const trackNewDestinationAction = useTrackAction(TrackActionType.NEW_DESTINATION);
 
   const onDropDownSelect = (destinationDefinitionId: string) => {
     setDestinationDefinitionId && setDestinationDefinitionId(destinationDefinitionId);
@@ -54,9 +54,8 @@ const DestinationForm: React.FC<DestinationFormProps> = ({
       afterSelectConnector();
     }
 
-    analyticsService.track("New Destination - Action", {
-      action: "Select a connector",
-      connector_destination_definition: connector?.name,
+    trackNewDestinationAction("Select a connector", {
+      connector_destination: connector?.name,
       connector_destination_definition_id: destinationDefinitionId,
     });
   };

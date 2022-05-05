@@ -4,12 +4,13 @@ import { FormattedMessage } from "react-intl";
 import { ConnectionConfiguration } from "core/domain/connection";
 import { SourceDefinition, SourceDefinitionSpecification } from "core/domain/connector";
 import { LogsRequestError } from "core/request/LogsRequestError";
-import { useAnalyticsService } from "hooks/services/Analytics/useAnalyticsService";
+import useRouter from "hooks/useRouter";
+import { TrackActionType, useTrackAction } from "hooks/useTrackAction";
 import { createFormErrorMessage } from "utils/errorStatusMessage";
 import { ConnectorCard } from "views/Connector/ConnectorCard";
 import { ServiceFormValues } from "views/Connector/ServiceForm/types";
 
-type SourceFormProps = {
+interface SourceFormProps {
   onSubmit: (values: {
     name: string;
     serviceType: string;
@@ -24,6 +25,14 @@ type SourceFormProps = {
   sourceDefinitionSpecification: SourceDefinitionSpecification | undefined;
   sourceDefinitionError: Error | null;
   isLoading: boolean;
+}
+
+const hasSourceDefinitionId = (state: unknown): state is { sourceDefinitionId: string } => {
+  return (
+    typeof state === "object" &&
+    state !== null &&
+    typeof (state as { sourceDefinitionId?: string }).sourceDefinitionId === "string"
+  );
 };
 
 const SourceForm: React.FC<SourceFormProps> = ({
@@ -37,7 +46,8 @@ const SourceForm: React.FC<SourceFormProps> = ({
   sourceDefinitionError,
   isLoading,
 }) => {
-  const analyticsService = useAnalyticsService();
+  const { location } = useRouter();
+  const trackNewSourceAction = useTrackAction(TrackActionType.NEW_SOURCE);
 
   //TODO: today's changes broke some functionality on the source creation form within the connectors setup flow if users are completing it there...
   const onDropDownSelect = (sourceDefinitionId: string) => {
@@ -48,9 +58,8 @@ const SourceForm: React.FC<SourceFormProps> = ({
       afterSelectConnector();
     }
 
-    analyticsService.track("New Source - Action", {
-      action: "Select a connector",
-      connector_source_definition: connector?.name,
+    trackNewSourceAction("Select a connector", {
+      connector_source: connector?.name,
       connector_source_definition_id: sourceDefinitionId,
     });
   };
