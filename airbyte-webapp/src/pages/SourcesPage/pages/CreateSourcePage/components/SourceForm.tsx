@@ -4,7 +4,6 @@ import { FormattedMessage } from "react-intl";
 import { ConnectionConfiguration } from "core/domain/connection";
 import { SourceDefinition, SourceDefinitionSpecification } from "core/domain/connector";
 import { LogsRequestError } from "core/request/LogsRequestError";
-import useRouter from "hooks/useRouter";
 import { TrackActionType, useTrackAction } from "hooks/useTrackAction";
 import { createFormErrorMessage } from "utils/errorStatusMessage";
 import { ConnectorCard } from "views/Connector/ConnectorCard";
@@ -27,14 +26,6 @@ interface SourceFormProps {
   isLoading: boolean;
 }
 
-const hasSourceDefinitionId = (state: unknown): state is { sourceDefinitionId: string } => {
-  return (
-    typeof state === "object" &&
-    state !== null &&
-    typeof (state as { sourceDefinitionId?: string }).sourceDefinitionId === "string"
-  );
-};
-
 const SourceForm: React.FC<SourceFormProps> = ({
   onSubmit,
   sourceDefinitions,
@@ -46,7 +37,6 @@ const SourceForm: React.FC<SourceFormProps> = ({
   sourceDefinitionError,
   isLoading,
 }) => {
-  const { location } = useRouter();
   const trackNewSourceAction = useTrackAction(TrackActionType.NEW_SOURCE);
 
   //TODO: today's changes broke some functionality on the source creation form within the connectors setup flow if users are completing it there...
