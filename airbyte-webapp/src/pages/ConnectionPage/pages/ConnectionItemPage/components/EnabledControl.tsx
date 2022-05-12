@@ -59,7 +59,8 @@ const EnabledControl: React.FC<EnabledControlProps> = ({ connection, disabled, f
         connector_destination_definition_id: connection.destination?.destinationDefinitionId,
         frequency: frequencyText,
       });
-    } catch {}
+    } finally {
+    }
     setLoading(false);
   };
 
