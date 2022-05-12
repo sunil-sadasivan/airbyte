@@ -123,7 +123,7 @@ const OnboardingPage: React.FC = () => {
               {currentStep === StepType.FINAl ? (
                 <FormattedMessage id="onboarding.closeOnboarding" />
               ) : (
-                <FormattedMessage id="onboarding.skipOnboarding" />
+                <FormattedMessage id={currentStep === StepType.FINAl ? "onboarding.closeOnboarding":"onboarding.skipOnboarding" />
               )}
             </Button>
           </Footer>
