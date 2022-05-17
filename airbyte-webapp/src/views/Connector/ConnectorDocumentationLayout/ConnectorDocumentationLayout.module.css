@@ -37,3 +37,7 @@
   overflow: hidden;
   max-height: 100vw;
 }
+
+.fullHeight {
+  height: 100%;
+}

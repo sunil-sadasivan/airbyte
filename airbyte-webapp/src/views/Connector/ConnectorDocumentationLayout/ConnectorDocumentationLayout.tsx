@@ -32,14 +32,14 @@ const LeftPanelContainer: React.FC<React.PropsWithChildren<PanelContainerProps>>
   const width = dimensions?.width ?? 0;
   return (
     <>
-      {width < 450 && (
-        <div className={styles.darkOverlay}>
+      {width < 550 && (
+        <div className={`${styles.darkOverlay}`}>
           <h3>
             <FormattedMessage id="connectorForm.expandForm" />
           </h3>
         </div>
       )}
-      <div>{children}</div>
+      <div className={styles.noScrollVisible}>{children}</div>
     </>
   );
 };
@@ -53,7 +53,7 @@ const RightPanelContainer: React.FC<React.PropsWithChildren<PanelContainerProps>
           <h2 className={styles.rotatedHeader}>Setup Guide</h2>
         </div>
       ) : (
-        <div>{children}</div>
+        <div className={styles.fullHeight}>{children}</div>
       )}
     </>
   );
