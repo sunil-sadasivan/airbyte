@@ -61,9 +61,12 @@ const JobItem: React.FC<IProps> = ({ shortInfo, ...props }) => {
   const jobMeta = isJobEntity(props) ? props.job.job : props.jobInfo;
   const { jobId: linkedJobId } = useAttemptLink();
   const [isOpen, setIsOpen] = useState(linkedJobId === String(jobMeta.id));
-  const onExpand = () => setIsOpen(!isOpen);
   const scrollAnchor = useRef<HTMLDivElement>(null);
   const [logTimestamp, setLogTimestamp] = useState<number>();
+  const onExpand = () => {
+    setIsOpen(!isOpen);
+    setLogTimestamp(undefined);
+  };
 
   const isFailed = jobMeta.status === Status.FAILED;
   const isPartialSuccess = isJobEntity(props) ? isPartialSuccessCheck(props.job.attempts) : undefined;
