@@ -35,7 +35,7 @@
 
 .noScroll {
   overflow: hidden;
-  max-height: 100vw;
+  max-height: 100%;
 }
 
 .fullHeight {
