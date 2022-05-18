@@ -398,7 +398,9 @@ public class EnvConfigs implements Configs {
 
   // Temporal Cloud
   @Override
-  public boolean temporalCloudEnabled() { return getEnvOrDefault(TEMPORAL_CLOUD_ENABLED, false); }
+  public boolean temporalCloudEnabled() {
+    return getEnvOrDefault(TEMPORAL_CLOUD_ENABLED, false);
+  }
 
   @Override
   public String getTemporalCloudHost() {
