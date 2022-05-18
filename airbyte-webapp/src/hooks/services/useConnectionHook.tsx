@@ -49,6 +49,7 @@ type CreateConnectionProps = {
 };
 
 type UpdateConnection = {
+  name?: string;
   connectionId: string;
   syncCatalog?: SyncSchema;
   namespaceDefinition: ConnectionNamespaceDefinition;

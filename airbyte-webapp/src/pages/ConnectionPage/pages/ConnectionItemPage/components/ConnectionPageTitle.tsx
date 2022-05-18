@@ -1,18 +1,17 @@
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { FormattedMessage } from "react-intl";
 import styled from "styled-components";
 
-import { H6, Link } from "components";
+import { H6 } from "components";
 import StepsMenu from "components/StepsMenu";
 
 import { Connection, ConnectionStatus } from "core/domain/connection";
 import { Source, Destination } from "core/domain/connector/types";
 import useRouter from "hooks/useRouter";
 
-import { RoutePaths } from "../../../../routePaths";
 import { ConnectionSettingsRoutes } from "../ConnectionSettingsRoutes";
+import ConnectionName from "./ConnectionName";
+import { StatusMainInfo } from "./StatusMainInfo";
 
 interface ConnectionPageTitleProps {
   source: Source;
@@ -27,20 +26,12 @@ const Title = styled.div`
 `;
 
 const Links = styled.div`
-  margin-bottom: 18px;
+  margin: 18px 0;
   font-size: 15px;
   font-weight: bold;
-`;
-
-const ConnectorsLink = styled(Link)`
-  font-style: normal;
-  font-weight: bold;
-  font-size: 24px;
-  line-height: 29px;
-  text-align: center;
-  display: inline-block;
-  margin: 0 16px;
-  color: ${({ theme }) => theme.textColor};
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const ConnectionPageTitle: React.FC<ConnectionPageTitleProps> = ({ source, destination, connection, currentStep }) => {
@@ -80,12 +71,9 @@ const ConnectionPageTitle: React.FC<ConnectionPageTitleProps> = ({ source, desti
       <H6 center bold highlighted>
         <FormattedMessage id="connection.title" />
       </H6>
+      <ConnectionName connection={connection} />
       <Links>
-        <ConnectorsLink to={`../../${RoutePaths.Source}/${source.sourceId}`}>{source.name}</ConnectorsLink>
-        <FontAwesomeIcon icon={faArrowRight} />
-        <ConnectorsLink to={`../../${RoutePaths.Destination}/${destination.destinationId}`}>
-          {destination.name}
-        </ConnectorsLink>
+        <StatusMainInfo connection={connection} source={source} destination={destination} />
       </Links>
       <StepsMenu lightMode data={steps} onSelect={onSelectStep} activeStep={currentStep} />
     </Title>
