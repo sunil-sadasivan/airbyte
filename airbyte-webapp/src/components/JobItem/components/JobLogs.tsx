@@ -15,13 +15,14 @@ import Tabs from "./Tabs";
 type IProps = {
   id: number | string;
   jobIsFailed?: boolean;
+  logTimestamp?: number;
 };
 
 const isPartialSuccess = (attempt: Attempt) => {
   return !!attempt.failureSummary?.partialSuccess;
 };
 
-const JobLogs: React.FC<IProps> = ({ id, jobIsFailed }) => {
+const JobLogs: React.FC<IProps> = ({ id, jobIsFailed, logTimestamp }) => {
   const job = useGetJob(id);
   const debugInfo = useGetDebugInfoJob(id);
 
@@ -70,6 +71,7 @@ const JobLogs: React.FC<IProps> = ({ id, jobIsFailed }) => {
         path={path}
         currentAttempt={job.attempts.length > 1 ? currentAttempt : null}
         logs={logs}
+        logTimestamp={logTimestamp}
         jobDebugInfo={debugInfo.job}
       />
     </>

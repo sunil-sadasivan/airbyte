@@ -34,7 +34,8 @@ const LogsDetails: React.FC<{
   currentAttempt?: Attempt | null;
   logs?: Logs;
   jobDebugInfo?: JobDebugInfoMeta;
-}> = ({ path, logs, id, currentAttempt, jobDebugInfo }) => (
+  logTimestamp?: number;
+}> = ({ path, logs, id, currentAttempt, jobDebugInfo, logTimestamp }) => (
   <>
     {currentAttempt && (
       <AttemptDetailsSection>
@@ -47,7 +48,7 @@ const LogsDetails: React.FC<{
       {logs?.logLines && <DownloadButton logs={logs?.logLines ?? []} fileName={`logs-${id}`} />}
       {jobDebugInfo && <DebugInfoButton jobDebugInfo={jobDebugInfo} />}
     </LogHeader>
-    <LogsTable logsArray={logs?.logLines} />
+    <LogsTable logsArray={logs?.logLines} logTimestamp={logTimestamp} />
   </>
 );
 
