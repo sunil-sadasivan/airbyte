@@ -79,10 +79,6 @@ public class EnvConfigs implements Configs {
   private static final String TEMPORAL_HOST = "TEMPORAL_HOST";
   private static final String TEMPORAL_WORKER_PORTS = "TEMPORAL_WORKER_PORTS";
   private static final String TEMPORAL_HISTORY_RETENTION_IN_DAYS = "TEMPORAL_HISTORY_RETENTION_IN_DAYS";
-  private static final String TEMPORAL_CLOUD_HOST = "TEMPORAL_CLOUD_HOST";
-  private static final String TEMPORAL_CLOUD_NAMESPACE = "TEMPORAL_CLOUD_NAMESPACE";
-  private static final String TEMPORAL_CLOUD_CERT_PATH = "TEMPORAL_CLOUD_CERT_PATH";
-  private static final String TEMPORAL_CLOUD_KEY_PATH = "TEMPORAL_CLOUD_KEY_PATH";
   public static final String JOB_KUBE_NAMESPACE = "JOB_KUBE_NAMESPACE";
   private static final String SUBMITTER_NUM_THREADS = "SUBMITTER_NUM_THREADS";
   public static final String JOB_MAIN_CONTAINER_CPU_REQUEST = "JOB_MAIN_CONTAINER_CPU_REQUEST";
@@ -115,6 +111,12 @@ public class EnvConfigs implements Configs {
   public static final String STATE_STORAGE_MINIO_SECRET_ACCESS_KEY = "STATE_STORAGE_MINIO_SECRET_ACCESS_KEY";
   public static final String STATE_STORAGE_GCS_BUCKET_NAME = "STATE_STORAGE_GCS_BUCKET_NAME";
   public static final String STATE_STORAGE_GCS_APPLICATION_CREDENTIALS = "STATE_STORAGE_GCS_APPLICATION_CREDENTIALS";
+
+  private static final String TEMPORAL_CLOUD_ENABLED = "TEMPORAL_CLOUD_ENABLED";
+  private static final String TEMPORAL_CLOUD_HOST = "TEMPORAL_CLOUD_HOST";
+  private static final String TEMPORAL_CLOUD_NAMESPACE = "TEMPORAL_CLOUD_NAMESPACE";
+  private static final String TEMPORAL_CLOUD_CERT_PATH = "TEMPORAL_CLOUD_CERT_PATH";
+  private static final String TEMPORAL_CLOUD_KEY_PATH = "TEMPORAL_CLOUD_KEY_PATH";
 
   public static final String ACTIVITY_MAX_TIMEOUT_SECOND = "ACTIVITY_MAX_TIMEOUT_SECOND";
   public static final String ACTIVITY_MAX_ATTEMPT = "ACTIVITY_MAX_ATTEMPT";
@@ -395,6 +397,9 @@ public class EnvConfigs implements Configs {
   }
 
   // Temporal Cloud
+  @Override
+  public boolean temporalCloudEnabled() { return getEnvOrDefault(TEMPORAL_CLOUD_ENABLED, false); }
+
   @Override
   public String getTemporalCloudHost() {
     return getEnvOrDefault(TEMPORAL_CLOUD_HOST, "dev.ebc2e.tmprl.cloud:7233");
