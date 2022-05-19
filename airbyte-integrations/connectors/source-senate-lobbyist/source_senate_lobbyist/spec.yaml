@@ -4,10 +4,10 @@ connectionSpecification:
   title: Senate Lobbyist Spec
   type: object
   required:
-    - TODO
+    - apiKey
   additionalProperties: false
   properties:
-   # 'TODO: This schema defines the configuration required for the source. This usually involves metadata such as database and/or authentication information.':
-    TODO:
+    apiKey:
       type: string
-      description: describe me
+      description: Token provided by following these <a href=\"https://lda.senate.gov/api/redoc/v1/#section/Authentication/Register-and-Obtain-an-API-Key">instructions.</a>
+      airbyte_secret: true
