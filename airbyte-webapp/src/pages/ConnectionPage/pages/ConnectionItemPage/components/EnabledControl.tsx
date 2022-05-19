@@ -60,8 +60,8 @@ const EnabledControl: React.FC<EnabledControlProps> = ({ connection, disabled, f
         frequency: frequencyText,
       });
     } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (
